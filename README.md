@@ -1,4 +1,4 @@
-# Controlling randomness of functions
+# Controlling randomness
 ```
 @pseudo_random(*, seed=0, evolutive=True, input_dependent=False, loop=0, make_key=repr)
 ```
