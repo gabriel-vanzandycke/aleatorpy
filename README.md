@@ -1,14 +1,16 @@
 # Controlling randomness of functions
+```
+@pseudo_random(*, seed=0, evolutive=True, input_dependent=False, loop=0, make_key=repr)
+```
 Decorator Factory to control randomness of decorated function.
-Randomness is controlled by the function name and input arguments. 
-Equality is computed using builtin `hash()`. Two objets with two
-different hash will be considered different.
-When called on a class method, it must be decorated with `@method`.
-
-### Arguments:
+The random seed of `random` and `np.random` are set depending on the function name, it's input arguments, and the number of time it has been called.
+Equality of calls is computed using `repr`. Inputs with different representations will be considered different.
+When called on a class method, it must be decorated with `@method` decorator included in the package.
+The parameters to `pseudo_random()` are:
   - `evolutive` (`bool`): random seed is incremented each time the function is called. The counter is different for each set of arguments.
   - `input_dependent` (`bool`): initial random seed depends on function's input.
   - `loop` (`int`): get repeating input every `loop` iteration when `evolutive` is `True`. Else, `loop` argument is ignored.
+  - `make_key`: a function to compute the key based on the function name and it's arguments: `(f.__name__, args, kwargs)`.
             
 ### Example
 Basic usage:
