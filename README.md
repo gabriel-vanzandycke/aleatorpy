@@ -54,3 +54,6 @@ arguments='2':  6 6 6 6 6
 arguments='3':  6 6 6 6 6 
 arguments='4':  6 6 6 6 6 
 ```
+
+## Citation
+If you use this repository, please consider citing my work.
