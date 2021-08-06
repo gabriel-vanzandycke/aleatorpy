@@ -10,7 +10,7 @@ The parameters to `pseudo_random()` are:
   - `evolutive` (`bool`): random seed is incremented each time the function is called. The counter is different for each set of arguments.
   - `input_dependent` (`bool`): initial random seed depends on function's input.
   - `loop` (`int`): get repeating input every `loop` iteration when `evolutive` is `True`. Else, `loop` argument is ignored.
-  - `make_key`: a function to compute the key based on the function name and it's arguments: `(f.__name__, args, kwargs)`.
+  - `make_key`: a function to compute the key based on the function name and it's arguments: `(f.__name__, args, kwargs)`. Default is the builtin `repr`.
             
 ### Example
 Basic usage:
