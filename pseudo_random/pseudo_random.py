@@ -11,7 +11,7 @@ def method(call):
 
 def pseudo_random(seed=0, evolutive=True, input_dependent=False, loop=0):
     """ Decorator Factory to control randomness of decorated function.
-        Randomness is controlled by the function name and input arguments. 
+        Randomness is controlled by the function name and input arguments.
         Equality is computed using builtin `hash()`. Two objets with two
         different hash will be considered different.
         When called on a class method, it must be decorated with `@method`.
