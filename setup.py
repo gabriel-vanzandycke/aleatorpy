@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='pseudo_random',
+    name='aleatorpy',
     author='Gabriel Van Zandycke',
     author_email="gabriel.vanzandycke@hotmail.com",
     url="https://github.com/gabriel-vanzandycke/pseudo_random",
