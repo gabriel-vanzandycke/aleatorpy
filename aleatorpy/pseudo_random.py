@@ -9,7 +9,7 @@ def method(call):
         return call(*args, **kwargs)
     return wrapper
 
-def pseudo_random(seed=0, evolutive=True, input_dependent=False, loop=0):
+def pseudo_random(seed=0, evolutive=True, input_dependent=False, loop=0, repeat=1, make_key=repr):
     """ Decorator Factory to control randomness of decorated function.
         Randomness is controlled by the function name and input arguments.
         Equality is computed using builtin `hash()`. Two objets with two
@@ -18,19 +18,30 @@ def pseudo_random(seed=0, evolutive=True, input_dependent=False, loop=0):
 
         Arguments:
             evolutive (bool) - random seed is incremented each time the function
-            is called. The counter is different for each set of arguments.
+                is called. The counter is different for each set of arguments.
             input_dependent (bool) - initial random seed depends on function's
-            input.
+                input arguments.
+            seed (int) - base seed (should be kept constant for reproducible
+                results)
+            loop (int) - random seed counter is reset after `loop` iterations.
+                `loop=0` means never. Only makes sense when `evolutive=True`.
+                `loop=1` is equivalent of having `evolutive=False`.
+            repeat (int) - random seed is incremented every `repeat` iterations.
+
+        Note:
+            It's necessary to have DecoratorFactory defined within
+            `pseudo_random`'s `decorator` for `functools.wraps(f)` to work.
     """
     def decorator(f):
         class DecoratorFactory:
-            def __init__(self, f, *, seed=0, evolutive=True, input_dependent=False, loop=0, make_key=repr):
+            def __init__(self, f, *, seed=0, evolutive=True, input_dependent=False, loop=0, repeat=1, make_key=repr):
                 self.f = f
                 self.seed = seed
+                self.loop = loop
                 self.__history = {}
                 self.__evolutive = evolutive
                 self.__input_dependent = input_dependent
-                self.__loop = loop
+                self.__repeat = repeat
                 self.make_key = make_key
 
             def reset_seed(self):
@@ -39,7 +50,7 @@ def pseudo_random(seed=0, evolutive=True, input_dependent=False, loop=0):
             @functools.wraps(f)
             def __call__(self, *args, **kwargs):
                 key = self.make_key((self.f, args, kwargs))
-                history_seed = self.__history.setdefault(key, 0)
+                history_seed = self.__history.setdefault(key, 0)//self.__repeat
 
                 # backup random state
                 random_state = random.getstate()
@@ -59,9 +70,9 @@ def pseudo_random(seed=0, evolutive=True, input_dependent=False, loop=0):
 
                 if self.__evolutive:
                     self.__history[key] += 1
-                    if self.__loop:
-                        self.__history[key] %= self.__loop
+                    if self.loop:
+                        self.__history[key] %= self.loop
 
                 return result
-        return DecoratorFactory(f, seed=seed, evolutive=evolutive, input_dependent=input_dependent, loop=loop)
+        return DecoratorFactory(f, seed=seed, evolutive=evolutive, input_dependent=input_dependent, repeat=repeat, loop=loop, make_key=make_key)
     return decorator
