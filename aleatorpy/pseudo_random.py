@@ -1,5 +1,6 @@
-import random
 import functools
+import hashlib
+import random
 import numpy as np
 
 
@@ -47,16 +48,20 @@ def pseudo_random(seed=0, evolutive=True, input_dependent=False, loop=0, repeat=
             def reset_seed(self):
                 self.__history = {}
 
+            @staticmethod
+            def hash_func(string):
+                return int(hashlib.md5(string.encode('utf-8')).hexdigest()[0:8], 16)
+
             @functools.wraps(f)
             def __call__(self, *args, **kwargs):
-                key = self.make_key((self.f, args, kwargs))
+                key = self.make_key((args, kwargs))# self.f, args, kwargs))   <--- why is 'self.f' necessary ??!?
                 history_seed = self.__history.setdefault(key, 0)//self.__repeat
 
                 # backup random state
                 random_state = random.getstate()
                 np_random_state = np.random.get_state()
 
-                call_seed = history_seed + (0 if not self.__input_dependent else hash(key))
+                call_seed = history_seed + (0 if not self.__input_dependent else self.hash_func(key))
 
                 # set random state
                 random.seed(self.seed + call_seed)
