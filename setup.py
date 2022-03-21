@@ -8,7 +8,7 @@ setup(
     licence="LGPL",
     python_requires='>=3.6',
     description="",
-    version='0.2.0',
+    version='0.3.0',
     packages=find_packages(),
     install_requires=[
         "numpy",
