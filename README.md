@@ -18,41 +18,43 @@ Basic usage:
 @pseudo_random(input_dependent=input_dependent, evolutive=evolutive)
 def get_random_number(*args):
     return random.randint(0,9)
+argument = '0'
+print(" ".join([str(get_random_number(argument)) for _ in range(5)]))
 ```
 
 Called 5 times with 5 different inputs will yield:
 ```
-evolutive: True	input_dependent: True	(5 iterations)
----------------------------------------------------------------
-arguments='0':  0 3 2 2 4 
-arguments='1':  5 8 6 8 6 
-arguments='2':  3 7 7 9 8 
-arguments='3':  5 3 8 3 8 
-arguments='4':  0 1 4 0 6 
+evolutive: True      input_dependent: True      (5 iterations)
+-----------------------------------------------------------------
+with argument='0':	3 0 4 2 5
+with argument='1':	0 7 3 3 4
+with argument='2':	8 3 3 4 9
+with argument='3':	1 6 8 0 2
+with argument='4':	4 0 2 9 1
 
-evolutive: False	input_dependent: True	(5 iterations)
----------------------------------------------------------------
-arguments='0':  9 9 9 9 9 
-arguments='1':  2 2 2 2 2 
-arguments='2':  6 6 6 6 6 
-arguments='3':  0 0 0 0 0 
-arguments='4':  9 9 9 9 9 
+evolutive: False     input_dependent: True      (5 iterations)
+-----------------------------------------------------------------
+with argument='0':	3 3 3 3 3
+with argument='1':	0 0 0 0 0
+with argument='2':	8 8 8 8 8
+with argument='3':	1 1 1 1 1
+with argument='4':	4 4 4 4 4
 
-evolutive: True	input_dependent: False	(5 iterations)
----------------------------------------------------------------
-arguments='0':  6 2 0 3 3 
-arguments='1':  6 2 0 3 3 
-arguments='2':  6 2 0 3 3 
-arguments='3':  6 2 0 3 3 
-arguments='4':  6 2 0 3 3 
+evolutive: True      input_dependent: False     (5 iterations)
+-----------------------------------------------------------------
+with argument='0':	6 2 0 3 3
+with argument='1':	6 2 0 3 3
+with argument='2':	6 2 0 3 3
+with argument='3':	6 2 0 3 3
+with argument='4':	6 2 0 3 3
 
-evolutive: False	input_dependent: False	(5 iterations)
----------------------------------------------------------------
-arguments='0':  6 6 6 6 6 
-arguments='1':  6 6 6 6 6 
-arguments='2':  6 6 6 6 6 
-arguments='3':  6 6 6 6 6 
-arguments='4':  6 6 6 6 6 
+evolutive: False     input_dependent: False     (5 iterations)
+-----------------------------------------------------------------
+with argument='0':	6 6 6 6 6
+with argument='1':	6 6 6 6 6
+with argument='2':	6 6 6 6 6
+with argument='3':	6 6 6 6 6
+with argument='4':	6 6 6 6 6
 ```
 
 ## Citation
