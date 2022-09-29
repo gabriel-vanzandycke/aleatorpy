@@ -18,12 +18,12 @@ def pseudo_random(seed=0, evolutive=True, input_dependent=False, loop=0, repeat=
         When called on a class method, it must be decorated with `@method`.
 
         Arguments:
+            seed (int) - base seed (should be kept constant for reproducible
+                results)
             evolutive (bool) - random seed is incremented each time the function
                 is called. The counter is different for each set of arguments.
             input_dependent (bool) - initial random seed depends on function's
                 input arguments.
-            seed (int) - base seed (should be kept constant for reproducible
-                results)
             loop (int) - random seed counter is reset after `loop` iterations.
                 `loop=0` means never. Only makes sense when `evolutive=True`.
                 `loop=1` is equivalent of having `evolutive=False`.
